@@ -347,7 +347,7 @@ def now_checkout(request, **kwargs):
          x += i.price
     total = x 
     
-    publishKey = 'pk_test_51GrTKfFi7NZQwJjYqf6lqttDL06lWRE3WeLeIfpHYlOhe70y5Aivog0UK0I1TtYxlQFNkeqDBmhC9yWxuJCuy8WO00ZY3c2CXj'
+    publishKey = ''
 
 
     if request.method == 'POST':
