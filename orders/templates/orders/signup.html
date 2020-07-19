@@ -1,0 +1,26 @@
+{% extends "orders/base.html" %}
+{% load static %}
+
+{% block head %}
+<title> Signup </title>
+<link rel="stylesheet" href="{% static 'orders/style.css' %}"/>
+{% endblock %}
+{% block body %}
+<div id="login-box">
+      <div class="box">
+<h1>Sign up</h1>
+{% if message %}
+    <div>
+        {{ message }}
+    </div>
+{% endif %}
+<form action="{% url 'signup' %}" method="post">
+   {% csrf_token %}
+   <input name="username" type="text" placeholder= "Username"/>
+    <input name="password" type="password" placeholder= "password"/>
+    <input name="e_mail" type="text" placeholder="E-mail"/>
+    <input type="submit" value="Sign-Up"/ class="btn aqua-gradient">
+</form>
+</div>
+</div>
+{% endblock %}

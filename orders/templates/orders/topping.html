@@ -1,0 +1,104 @@
+{% extends "orders/base.html" %}
+{% block head %}
+<title>Add toppings</title>
+{% endblock %}
+{% block body %}
+
+
+<header>
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+
+  <div class="container">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+      aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+</button>
+
+ <div class="navbar-collapse" id="basicExampleNav">
+<ul class="navbar-nav mr-auto"><li class="nav-item active"><a href="{% url 'cart' %}"><button class="btn aqua-gradient">View your Cart</button></a></li>
+<li class="nav-item active"><a href="{% url 'index' %}"><button class="btn aqua-gradient">Home</button></a></li></ul>
+</div>
+</div>
+</nav>
+</header>
+
+<section class="my-5">
+  <h1 class="h1-responsive font-weight-bold text-center my-5">Add toppings to pizza</h1>
+    <div class="row">
+
+    <div class="col-lg-3">
+</div>
+<div  class="col-lg-9">
+<table>
+<tr>
+       		<th>Category</th>
+            <th>Meal</th>
+            <th>Price</th>
+            <th>ADD Topping</th>
+            <th>Time added</th>
+  
+       	</tr>
+       	{% for item in CartItems %} 
+        {% if item.category == "Regular Pizza" %} 
+       	<tr><form action="{% url 'now_add_topping'  %}" method="post">
+       		{% csrf_token %}
+     	<td><select name="item_id"> <option value="{{ item.id }}">{{ item.category }}</option></select></td>
+     	<td><select name="dressing"> <option value="{{ item.dressing }}">{{ item.dressing }}</option></select></td>
+     	<td>${{ item.price }}</td>
+     	{% if item.dressing == "Cheese" %}
+     	<td> No topping to add.</td>
+     	{% elif item.dressing == "1 topping" %}
+        <td><ul>{% for topping in item.toppings.all %} 
+        	<li>{{ topping }}</li>
+        	{% empty %}
+        	<li>Random topping.</li>
+     		{% endfor %}</ul>
+     		<select name="topping">
+     	{% for i in Toppings %}
+                <option value="{{ i.topping_name }}">{{ i.topping_name }}</option>
+              {% endfor %}</select> <input type="submit" value="Add topping" /></td>
+              {% elif item.dressing == "2 toppings" %}
+        <td><ul>{% for topping in item.toppings.all %} 
+        	<li>{{ topping }}</li>
+        	{% empty %}
+        	<li>Random toppings.</li>
+     		{% endfor %}</ul>
+     		<select name="topping">
+     	{% for i in Toppings %}
+                <option value="{{ i.topping_name }}">{{ i.topping_name }}</option>
+              {% endfor %}</select> <input type="submit" value="Add topping" /></td>
+          {% elif item.dressing == "3 toppings" %}
+        <td><ul>{% for topping in item.toppings.all %} 
+        	<li>{{ topping }}</li>
+        	{% empty %}
+        	<li>Random toppings.</li>
+     		{% endfor %}</ul>
+     		<select name="topping">
+     	{% for i in Toppings %}
+                <option value="{{ i.topping_name }}">{{ i.topping_name }}</option>
+              {% endfor %}</select> <input type="submit" value="Add topping" /></td>
+
+              {% else %}
+        <td><ul>{% for topping in item.toppings.all %} 
+        	<li>{{ topping }}</li>
+        	{% empty %}
+        	<li>Random toppings.</li>
+     		{% endfor %}</ul>
+     		<select name="topping">
+     	{% for i in Toppings %}
+                <option value="{{ i.topping_name }}">{{ i.topping_name }}</option>
+              {% endfor %}</select> <input type="submit" value="Add topping" /></td>
+
+              {% endif %}
+              <td>{{ item.created_at }}</td>
+          </form></tr>
+          {% else %}
+          <tr> </tr>
+          {% endif %}
+          {% endfor %}
+   </table>   
+    </div>
+</div>
+ </section>
+{% endblock %}
